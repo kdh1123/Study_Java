@@ -15,7 +15,7 @@ private int index;
 		this.buffer[this.index++] = value;
 	}
 	public String pop() {
-		
+		return buffer[0];
 	}
 	public static void main(String[] args) {
 		Stack stack = new Stack();
