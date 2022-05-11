@@ -10,8 +10,13 @@ public class CommandLs extends AbstractCommand {
 
     @Override
     public File executeCommand() {
-        // TODO
-        return null;
+        File dir = new File(currentDirectory.getAbsolutePath());
+        File[] listFiles = dir.listFiles();
+
+        for(File file : listFiles){
+            System.out.println(file.getName());
+        }
+        return currentDirectory;
     }
 
 }

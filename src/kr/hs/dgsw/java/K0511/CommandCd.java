@@ -10,7 +10,26 @@ public class CommandCd extends AbstractCommand {
 
     @Override
     public File executeCommand() {
-        // TODO
-        return null;
+        String newDir = commandLine.substring(commandLine.lastIndexOf(" ")+1);
+        String path = currentDirectory.getAbsolutePath();
+
+        if(newDir.equals("..")){
+           try{
+               String str = path.substring(path.lastIndexOf("\\")+1);
+               System.out.println(str);
+               return new File(path.replace(str,""));
+           }catch (Exception e){
+               return currentDirectory;
+           }
+        }
+        else{
+            File file = new File(path + "\\"+ newDir);
+            if(file.exists()){
+                return file;
+            }
+            else{
+                return currentDirectory;
+            }
+        }
     }
 }
