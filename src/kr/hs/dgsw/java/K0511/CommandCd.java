@@ -14,13 +14,14 @@ public class CommandCd extends AbstractCommand {
         String path = currentDirectory.getAbsolutePath();
 
         if(newDir.equals("..")){
-           try{
                String str = path.substring(path.lastIndexOf("\\")+1);
-               System.out.println(str);
+               if(str.equals("")){
+                   System.out.println("cannot find the path");
+                   return currentDirectory;
+               }
+
+               else
                return new File(path.replace(str,""));
-           }catch (Exception e){
-               return currentDirectory;
-           }
         }
         else{
             File file = new File(path + "\\"+ newDir);
@@ -28,6 +29,7 @@ public class CommandCd extends AbstractCommand {
                 return file;
             }
             else{
+                System.out.println("cannot find the path");
                 return currentDirectory;
             }
         }
