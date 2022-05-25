@@ -18,7 +18,7 @@ public class AdderWithThread {
             CalculatorThread calculator =
                     new CalculatorThread(value1,value2);
             Thread thread = new Thread(calculator);
-            
+
         }
         System.out.println("프로그램을 종료합니다.");
     }
