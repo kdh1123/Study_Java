@@ -22,7 +22,7 @@ public class CommandLs extends AbstractCommand {
             else if(file.isFile()) {
                 long val = file.length();
                 String len;
-                len = val + "B";
+                len = val + " B";
                 if(val > 1024){
                     val /= 1024;
                     len = val+"KB";
