@@ -50,6 +50,8 @@ public class Bank {
     public static void main(String[] args) {
         Bank bank = new Bank();
 
+        bank.makeAccount("홍길동");
+
         DepositThread self = new DepositThread("홍길동",bank,300000);
         new Thread(self).start();
 
