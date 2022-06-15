@@ -8,8 +8,6 @@ public class Counter {
     private Queue<String> list = new LinkedList<String>();
     private void hireEngineers(){
         for(int i=0; i<10; i++){
-            Enginner engineer = new Engineer(this);
-            new Thread(engineer).start();
         }
     }
 
