@@ -1,11 +1,6 @@
 package kr.hs.dgsw.java.phone_number;
 
-import kr.hs.dgsw.java.K0504.FileWriter;
-
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 import java.util.Scanner;
 
@@ -13,6 +8,7 @@ public class PhoneNumberBook {
     String name;
     String phoneNum;
     String[] phoneNumArr;
+    File file = new File("C:\\Users\\DGSW\\Documents\\PhoneNum.txt");
     public Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
         PhoneNumberBook book = new PhoneNumberBook();
@@ -28,6 +24,7 @@ public class PhoneNumberBook {
                 else if(fun.equals("/이름으로 검색")) book.searchUseName();
                 else if(fun.equals("/전화번호 수정")) book.updatePhoneNum();
                 else if(fun.equals("/전화번호 삭제")) book.deletePhoneNum();
+                else if(fun.equals("/전화번호 목록")) System.out.println("** "+book.getList().size()+"개의 전화번호가 있습니다. **\n"+book.getList());
                 else if(fun.equals("/명령어")) {
                     System.out.println("** 명령어 목록 **");
                     System.out.println(
@@ -35,7 +32,8 @@ public class PhoneNumberBook {
                             "/전화번호로 검색 : 전화번호를 입력해 해당하는 전화번호를 검색합니다.\n" +
                             "/이름으로 검색 : 이름을 입력해 해당하는 전화번호를 검색합니다.\n"+
                             "/전화번호 수정 : 선택한 인물의 전화번호를 수정합니다.\n" +
-                            "/전화번호 삭제 : 이름을 입력해 전화번호를 삭제합니다.");
+                            "/전화번호 삭제 : 이름을 입력해 전화번호를 삭제합니다.\n" +
+                            "/전화번호 목록 : 저장된 전화번로 목록을 불러옵니다.");
                 }
                 else System.out.println("사용 가능한 명령어가 아닙니다. \"/명령어\"로 올바른 명령어인지 확인해주세요.");
             }
@@ -45,14 +43,19 @@ public class PhoneNumberBook {
         }
     }
     public void insertPhoneNum(){
-        FileWriter writer = new FileWriter("C:\\Users\\DGSW\\Documents\\PhoneNum.txt");
-        System.out.print("이름을 입력해주세요 : ");
-        name = scanner.next();
-        System.out.print("전화번호를 입력해주세요 (하이픈 '-' 포함): ");
-        phoneNum = scanner.nextLine();
-        phoneNum = phoneNum.trim();
-        writer.write(name+"/"+phoneNum);
-        System.out.println(getList());
+        FileWriter writer = null;
+        try {
+            writer = new FileWriter(file,true);
+            System.out.print("이름을 입력해주세요 : ");
+            name = scanner.nextLine();
+            System.out.print("전화번호를 입력해주세요 (하이픈 '-' 포함): ");
+            phoneNum = scanner.nextLine();
+            phoneNum = phoneNum.trim();
+            writer.write(name+"/"+phoneNum);
+            writer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     public void searchUseName(){
         List<String> list = getList();
