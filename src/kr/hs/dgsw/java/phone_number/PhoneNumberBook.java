@@ -73,6 +73,7 @@ public class PhoneNumberBook {
 
     public List<String> getList(){
         List<String> list = null;
+        list.add("전화번호 목록");
         String str;
         try {
             BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\DGSW\\Documents\\PhoneNum.txt"));
