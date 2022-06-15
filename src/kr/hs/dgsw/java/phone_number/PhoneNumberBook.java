@@ -17,15 +17,15 @@ public class PhoneNumberBook {
         System.out.println("사용하는 방법은 \"/명령어\"를 참고해주세요.");
         String fun;
         while(true){
-            System.out.print("명령 대기 : ");
+            System.out.print("\n명령 대기 : ");
             fun = book.scanner.nextLine();
             if(fun.startsWith("/")){
-                if(fun.equals("/전화번호 저장")) book.insertPhoneNum();
-                else if(fun.equals("/전화번호로 검색")) book.searchUseNum();
-                else if(fun.equals("/이름으로 검색")) book.searchUseName();
-                else if(fun.equals("/전화번호 수정")) book.updatePhoneNum();
-                else if(fun.equals("/전화번호 삭제")) book.deletePhoneNum();
-                else if(fun.equals("/전화번호 목록")) {
+                if(fun.equals("/등록")) book.insertPhoneNum();
+                else if(fun.equals("/전화번호 검색")) book.searchUseNum();
+                else if(fun.equals("/이름 검색")) book.searchUseName();
+                else if(fun.equals("/수정")) book.updatePhoneNum();
+                else if(fun.equals("/삭제")) book.deletePhoneNum();
+                else if(fun.equals("/목록")) {
                     System.out.println("** " + book.getList().size() + "개의 전화번호가 있습니다. **");
                     for(String item: book.getList()){
                         System.out.println(item);
@@ -34,12 +34,17 @@ public class PhoneNumberBook {
                 else if(fun.equals("/명령어")) {
                     System.out.println("** 명령어 목록 **");
                     System.out.println(
-                            "/전화번호 저장 : 이름과 전화번호를 입력해서 저장합니다.\n" +
-                            "/전화번호로 검색 : 전화번호를 입력해 해당하는 전화번호를 검색합니다.\n" +
-                            "/이름으로 검색 : 이름을 입력해 해당하는 전화번호를 검색합니다.\n"+
-                            "/전화번호 수정 : 선택한 인물의 전화번호를 수정합니다.\n" +
-                            "/전화번호 삭제 : 이름을 입력해 전화번호를 삭제합니다.\n" +
-                            "/전화번호 목록 : 저장된 전화번로 목록을 불러옵니다.");
+                            "/등록 : 이름과 전화번호를 입력해서 저장합니다.\n" +
+                            "/전화번호 검색 : 전화번호를 입력해 해당하는 전화번호를 검색합니다.\n" +
+                            "/이름 검색 : 이름을 입력해 해당하는 전화번호를 검색합니다.\n"+
+                            "/수정 : 선택한 인물의 전화번호를 수정합니다.\n" +
+                            "/삭제 : 이름을 입력해 전화번호를 삭제합니다.\n" +
+                            "/목록 : 저장된 전화번로 목록을 불러옵니다.\n" +
+                            "/나가기 : 프로그램을 종료합니다.");
+                }
+                else if(fun.equals("/나가기")) {
+                    book.exit();
+                    break;
                 }
                 else System.out.println("사용 가능한 명령어가 아닙니다. \"/명령어\"로 올바른 명령어인지 확인해주세요.");
             }
@@ -47,6 +52,7 @@ public class PhoneNumberBook {
                 System.out.println("올바른 명령어 형식이 아닙니다. 확인해주세요.");
             }
         }
+        System.out.println("\n** 프로그램 종료 **");
     }
     public void insertPhoneNum(){
         FileWriter writer = null;
@@ -100,7 +106,7 @@ public class PhoneNumberBook {
             list.remove(index);
 
             for(String item:list){
-                writer.write(item);
+                writer.write(item+"\n");
                 writer.flush();
             }
             System.out.println("** 삭제 완료 **");
@@ -112,8 +118,37 @@ public class PhoneNumberBook {
     }
     public void updatePhoneNum(){
         List<String> list = getList();
+        try {
+            FileWriter writer = new FileWriter(file, false);
+            int index;
+            System.out.println("** 전화번호 목록 **");
+            index = 0;
+            for (String item : list) {
+                System.out.println("순번 " + index++ + ":" + item);
+            }
+            System.out.print("수정할 전화번호의 순번을 입력해주세요 : ");
+            index = scanner.nextInt();
+            System.out.print("새로운 이름을 입력해주세요 : ");
+            name = scanner.nextLine();
+            System.out.print("새로운 전화번호를 입력해주세요 : ");
+            phoneNum = scanner.nextLine();
+            list.remove(index);
+            list.add(index,name+"/"+phoneNum);
+
+            for(String item:list){
+                writer.write(item+"\n");
+                writer.flush();
+            }
+            System.out.println("** 수정 완료 **");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
+    public void exit(){
+        scanner.close();
+    }
 
     public List<String> getList(){
         List<String> list = new ArrayList<String>();
