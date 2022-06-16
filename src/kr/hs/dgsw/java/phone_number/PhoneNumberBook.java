@@ -11,8 +11,48 @@ import java.util.regex.Pattern;
 public class PhoneNumberBook {
     String name;
     String phoneNum;
+    String fun;
     File file = new File("C:\\Users\\DGSW\\Documents\\PhoneNum.txt");
     public Scanner scanner = new Scanner(System.in);
+
+    public void execute(){
+        while(true){
+            System.out.print("\n명령 대기 : ");
+            fun = scanner.nextLine();
+            if(fun.startsWith("/")){
+                if(fun.equals("/등록")) insertPhoneNum();
+                else if(fun.equals("/전화번호 검색")) searchUseNum();
+                else if(fun.equals("/이름 검색")) searchUseName();
+                else if(fun.equals("/수정")) updatePhoneNum();
+                else if(fun.equals("/삭제")) deletePhoneNum();
+                else if(fun.equals("/목록")) {
+                    System.out.println("** " + getList().size() + "개의 전화번호가 있습니다. **");
+                    for(String item: getList()){
+                        System.out.println(item);
+                    }
+                }
+                else if(fun.equals("/명령어")) {
+                    System.out.println("** 명령어 목록 **");
+                    System.out.println(
+                            "/등록 : 이름과 전화번호를 입력해서 저장합니다.\n" +
+                                    "/전화번호 검색 : 전화번호를 입력해 해당하는 전화번호를 검색합니다.\n" +
+                                    "/이름 검색 : 이름을 입력해 해당하는 전화번호를 검색합니다.\n"+
+                                    "/수정 : 선택한 인물의 전화번호를 수정합니다.\n" +
+                                    "/삭제 : 이름을 입력해 전화번호를 삭제합니다.\n" +
+                                    "/목록 : 저장된 전화번로 목록을 불러옵니다.\n" +
+                                    "/나가기 : 프로그램을 종료합니다.");
+                }
+                else if(fun.equals("/나가기")) {
+                    exit();
+                    break;
+                }
+                else System.out.println("사용 가능한 명령어가 아닙니다. \"/명령어\"로 올바른 명령어인지 확인해주세요.");
+            }
+            else{
+                System.out.println(fun+" 라고 입력하셨습니다.");
+            }
+        }
+    }
     public void insertPhoneNum(){
         FileWriter writer = null;
         try {
@@ -44,7 +84,6 @@ public class PhoneNumberBook {
     }
     public void searchUseNum(){
         List<String> list = getList();
-        List<String> newList = new ArrayList<String>();
         System.out.print("전화번호를 입력해주세요 : ");
         phoneNum = scanner.nextLine();
         System.out.println("** 검색 결과 **");
@@ -89,7 +128,7 @@ public class PhoneNumberBook {
                 System.out.println("순번 " + index++ + ":" + item);
             }
             System.out.print("수정할 전화번호의 순번을 입력해주세요 : ");
-            index = Integer.parseInt(scanner.nextLine());
+            index = (Integer.parseInt(scanner.nextLine()) <= index && Integer.parseInt(scanner.nextLine()) >= 0)?Integer.parseInt(scanner.nextLine()):-1;
             System.out.print("새로운 이름을 입력해주세요 : ");
             name = scanner.nextLine();
             System.out.print("새로운 전화번호를 입력해주세요 : ");
@@ -137,43 +176,7 @@ public class PhoneNumberBook {
         PhoneNumberBook book = new PhoneNumberBook();
         System.out.println("** 전화번호부 프로그램입니다. **");
         System.out.println("사용하는 방법은 \"/명령어\"를 참고해주세요.");
-        String fun;
-        while(true){
-            System.out.print("\n명령 대기 : ");
-            fun = book.scanner.nextLine();
-            if(fun.startsWith("/")){
-                if(fun.equals("/등록")) book.insertPhoneNum();
-                else if(fun.equals("/전화번호 검색")) book.searchUseNum();
-                else if(fun.equals("/이름 검색")) book.searchUseName();
-                else if(fun.equals("/수정")) book.updatePhoneNum();
-                else if(fun.equals("/삭제")) book.deletePhoneNum();
-                else if(fun.equals("/목록")) {
-                    System.out.println("** " + book.getList().size() + "개의 전화번호가 있습니다. **");
-                    for(String item: book.getList()){
-                        System.out.println(item);
-                    }
-                }
-                else if(fun.equals("/명령어")) {
-                    System.out.println("** 명령어 목록 **");
-                    System.out.println(
-                            "/등록 : 이름과 전화번호를 입력해서 저장합니다.\n" +
-                                    "/전화번호 검색 : 전화번호를 입력해 해당하는 전화번호를 검색합니다.\n" +
-                                    "/이름 검색 : 이름을 입력해 해당하는 전화번호를 검색합니다.\n"+
-                                    "/수정 : 선택한 인물의 전화번호를 수정합니다.\n" +
-                                    "/삭제 : 이름을 입력해 전화번호를 삭제합니다.\n" +
-                                    "/목록 : 저장된 전화번로 목록을 불러옵니다.\n" +
-                                    "/나가기 : 프로그램을 종료합니다.");
-                }
-                else if(fun.equals("/나가기")) {
-                    book.exit();
-                    break;
-                }
-                else System.out.println("사용 가능한 명령어가 아닙니다. \"/명령어\"로 올바른 명령어인지 확인해주세요.");
-            }
-            else{
-                System.out.println("올바른 명령어 형식이 아닙니다. 확인해주세요.");
-            }
-        }
+        book.execute();
         System.out.println("\n** 프로그램 종료 **");
     }
 }
