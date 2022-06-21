@@ -33,7 +33,12 @@ public class CommonFun {
         Collections.sort(list);
         return list;
     }
-    public boolean checkDuplicate(){
+    public boolean checkDuplicate(List<String> list, String num){
+        for(String item:list){
+            if(item.substring(item.lastIndexOf("/")+1).equals(num)){
+                return  false;
+            }
+        }
         return true;
     }
 }

@@ -13,6 +13,7 @@ public class ProgramMain {
         file =  new File("C:\\\\Users\\\\DGSW\\\\Documents\\\\PhoneNum.txt");
         book = new PhoneNum(this.file);
         cf = new CommonFun();
+        scanner = new Scanner(System.in);
     }
     public static void main(String[] args) {
         ProgramMain pm = new ProgramMain();
@@ -24,7 +25,7 @@ public class ProgramMain {
     public void execute(){
         while(true) {
             System.out.print("\n명령 대기 : ");
-            fun = scanner.nextLine();
+            fun = scanner.nextLine().trim();
             switch (fun) {
                 case "/등록" -> book.insertPhoneNum();
                 case "/전화번호 검색" -> book.searchUseNum();

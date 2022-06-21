@@ -10,14 +10,17 @@ public class PhoneNum {
     String numTemp;
     CommonFun cf;
     File file;
-    public Scanner scanner = new Scanner(System.in);
+    public Scanner scanner;
 
     public PhoneNum(File file){
         cf = new CommonFun();
         this.file = new File("C:\\Users\\DGSW\\Documents\\PhoneNum.txt");
+        scanner = new Scanner(System.in);
     }
 
     public void insertPhoneNum(){
+        System.out.println("***********************************************");
+        List<String> list = cf.getList(file);
         FileWriter writer = null;
         try {
             writer = new FileWriter(file,true);
@@ -26,8 +29,8 @@ public class PhoneNum {
             System.out.print("전화번호를 입력해주세요 (하이픈 '-' 포함): ");
             numTemp = scanner.nextLine();
             while(true){
-                if(Pattern.matches("^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-\\d{4}$", numTemp)) break;
-                System.out.print("전화번호를 다시 입력해주세요 (하이픈 '-' 포함): ");
+                if(Pattern.matches("^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-\\d{4}$", numTemp) && cf.checkDuplicate(list,numTemp)) break;
+                System.out.print("전화번호 형식이 맞지 않거나, 중복되었습니다. 다시 입력해주세요(하이픈 '-' 포함): ");
                 numTemp = scanner.nextLine();
             }
             writer.write(nameTemp +"/"+ numTemp +"\n");
@@ -35,8 +38,10 @@ public class PhoneNum {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println("***********************************************");
     }
     public void searchUseName(){
+        System.out.println("***********************************************");
         List<String> list = cf.getList(file);
         System.out.print("이름을 입력해주세요 : ");
         nameTemp = scanner.nextLine();
@@ -44,9 +49,10 @@ public class PhoneNum {
         for(String item:list){
             if(item.contains(nameTemp)) System.out.println(item);
         }
-
+        System.out.println("***********************************************");
     }
     public void searchUseNum(){
+        System.out.println("***********************************************");
         List<String> list = cf.getList(file);
         System.out.print("전화번호를 입력해주세요 : ");
         numTemp = scanner.nextLine();
@@ -54,8 +60,10 @@ public class PhoneNum {
         for(String item:list){
             if(item.contains(numTemp)) System.out.println(item);
         }
+        System.out.println("***********************************************");
     }
     public void deletePhoneNum(){
+        System.out.println("***********************************************");
         List<String> list = cf.getList(file);
         try {
             FileWriter writer = new FileWriter(file, false);
@@ -79,9 +87,10 @@ public class PhoneNum {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        System.out.println("***********************************************");
     }
     public void updatePhoneNum(){
+        System.out.println("***********************************************");
         List<String> list = cf.getList(file);
         try {
             FileWriter writer = new FileWriter(file, false);
@@ -98,8 +107,8 @@ public class PhoneNum {
             System.out.print("새로운 전화번호를 입력해주세요 : ");
             numTemp = scanner.nextLine();
             while(true){
-                if(Pattern.matches("^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-\\d{4}$", numTemp)) break;
-                System.out.print("전화번호를 다시 입력해주세요 (하이픈 '-' 포함): ");
+                if(Pattern.matches("^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-\\d{4}$", numTemp) && cf.checkDuplicate(list,numTemp)) break;
+                System.out.print("전화번호 형식이 맞지 않거나, 중복되었습니다. 다시 입력해주세요(하이픈 '-' 포함): ");
                 numTemp = scanner.nextLine();
             }
             list.remove(index);
@@ -114,6 +123,7 @@ public class PhoneNum {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println("***********************************************");
     }
 
     public void exit(){
