@@ -1,4 +1,4 @@
-package kr.hs.dgsw.java.K0511;
+package kr.hs.dgsw.java.CommandPrompt;
 
 import java.io.File;
 import java.util.Scanner;
