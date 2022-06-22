@@ -1,7 +1,6 @@
 package kr.hs.dgsw.java.K0511;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
