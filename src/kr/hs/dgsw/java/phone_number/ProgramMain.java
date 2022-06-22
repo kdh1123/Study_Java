@@ -33,10 +33,12 @@ public class ProgramMain {
                 case "/수정" -> book.updatePhoneNum();
                 case "/삭제" -> book.deletePhoneNum();
                 case "/목록" -> {
+                    System.out.println("==========================================");
                     System.out.println("** " + cf.getList(file).size() + "개의 전화번호가 있습니다. **");
                     for (String item : cf.getList(file)) {
                         System.out.println(item);
                     }
+                    System.out.println("==========================================");
                 }
                 case "/명령어" -> cf.commandHelp();
                 case "/나가기" -> {

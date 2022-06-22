@@ -19,7 +19,7 @@ public class PhoneNum {
     }
 
     public void insertPhoneNum(){
-        System.out.println("***********************************************");
+        System.out.println("==========================================");
         List<String> list = cf.getList(file);
         FileWriter writer = null;
         try {
@@ -38,10 +38,10 @@ public class PhoneNum {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("***********************************************");
+        System.out.println("==========================================");
     }
     public void searchUseName(){
-        System.out.println("***********************************************");
+        System.out.println("==========================================");
         List<String> list = cf.getList(file);
         System.out.print("이름을 입력해주세요 : ");
         nameTemp = scanner.nextLine();
@@ -49,10 +49,10 @@ public class PhoneNum {
         for(String item:list){
             if(item.contains(nameTemp)) System.out.println(item);
         }
-        System.out.println("***********************************************");
+        System.out.println("==========================================");
     }
     public void searchUseNum(){
-        System.out.println("***********************************************");
+        System.out.println("==========================================");
         List<String> list = cf.getList(file);
         System.out.print("전화번호를 입력해주세요 : ");
         numTemp = scanner.nextLine();
@@ -60,10 +60,10 @@ public class PhoneNum {
         for(String item:list){
             if(item.contains(numTemp)) System.out.println(item);
         }
-        System.out.println("***********************************************");
+        System.out.println("==========================================");
     }
     public void deletePhoneNum(){
-        System.out.println("***********************************************");
+        System.out.println("==========================================");
         List<String> list = cf.getList(file);
         try {
             FileWriter writer = new FileWriter(file, false);
@@ -87,10 +87,10 @@ public class PhoneNum {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("***********************************************");
+        System.out.println("==========================================");
     }
     public void updatePhoneNum(){
-        System.out.println("***********************************************");
+        System.out.println("==========================================");
         List<String> list = cf.getList(file);
         try {
             FileWriter writer = new FileWriter(file, false);
@@ -101,7 +101,8 @@ public class PhoneNum {
                 System.out.println("순번 " + index++ + ":" + item);
             }
             System.out.print("수정할 전화번호의 순번을 입력해주세요 : ");
-            index = (Integer.parseInt(scanner.nextLine()) <= index && Integer.parseInt(scanner.nextLine()) >= 0)?Integer.parseInt(scanner.nextLine()):-1;
+            index = scanner.nextInt();
+            scanner.nextLine();
             System.out.print("새로운 이름을 입력해주세요 : ");
             nameTemp = scanner.nextLine();
             System.out.print("새로운 전화번호를 입력해주세요 : ");
@@ -123,7 +124,7 @@ public class PhoneNum {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("***********************************************");
+        System.out.println("==========================================");
     }
 
     public void exit(){
